@@ -26,6 +26,16 @@ client = Client(env['TWILIO_ACCOUNT_SID'], env['TWILIO_AUTH_TOKEN'])
 # Use a global variable so it's available to helper functions
 PARTICIPANTS = participants
 
+def is_valid_number(number):
+    try:
+        response = client.lookups.phone_numbers(number).fetch()
+        return True
+    except TwilioRestException as error:
+        if error.code == 20404:
+            return False
+        else:
+            raise error
+
 def create_assignments():
     """created the assignments from PARTICIPANTS
     """
@@ -100,5 +110,25 @@ def send_assignments(assignments):
 
 
 if __name__ == "__main__":
-    assignments_dict = create_assignments()
-    send_assignments(assignments_dict)
+    # before beginning, check the given phone_numbers are valid
+    invalid_numbers = 0
+    for key, value in PARTICIPANTS.items():
+        try:
+            result = is_valid_number(value['phone_number'])
+            if result == False:
+                invalid_numbers += 1
+                print(f"{key}'s phone number ({value['phone_number']}) is invalid")
+            else:
+                print(f"{key}'s phone number is valid")
+        except Exception as unknown_error:
+            print('An unknown error occurred')
+            print(unknown_error)
+            continue
+
+    # only continue if all numbers valid
+    if invalid_numbers == 0:
+        print('All numbers valid... running script')
+        assignments_dict = create_assignments()
+        send_assignments(assignments_dict)
+    else:
+        print(f'There were {invalid_numbers} invalid phone numbers. Correct them and re-run the script')

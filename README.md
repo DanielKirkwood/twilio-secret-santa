@@ -27,7 +27,7 @@ Then install the dependencies listed in requirements.txt using pip
 pip install -r requirements.txt
 ```
 
-**NOTE: I highly recommend you create a virtual environment to install the dependencies to. For more information on creating virtual environments in python, check out the [docs](https://docs.python.org/3/tutorial/venv.html)** 
+**NOTE: I highly recommend you create a virtual environment to install the dependencies to. For more information on creating virtual environments in python, check out the [docs](https://docs.python.org/3/tutorial/venv.html)**
 
 
 Create a `.env` file
@@ -75,7 +75,7 @@ participants = {
 }
 ```
 
-Each key should be the name of the participant. The value should be another dictionary with two keys; `phone_number` and `excludes`. The phone number must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164) or the messages will not be sent correctly by Twilio. `Excludes` is a list that contains the names of the participants which cannot be seelcted for the participant. In the above example, `name1` cannot be given `name2`, `name2` can be given anyone, `name3` cannot be given `name1` and `name4` cannot be given `name2` or `name3`.
+Each key should be the name of the participant. The value should be another dictionary with two keys; `phone_number` and `excludes`. The phone number must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164) or the script will not run. `Excludes` is a list that contains the names of the participants which cannot be seelcted for the participant. In the above example, `name1` cannot be given `name2`, `name2` can be given anyone, `name3` cannot be given `name1` and `name4` cannot be given `name2` or `name3`.
 
 
 ## Running the script
@@ -86,7 +86,7 @@ Provided that you have set-up your environment variables and the participants fi
 python main.py
 ```
 
-If you have set `DEBUG` to `False` then you will see 
+If you have set `DEBUG` to `False` then you will see
 
 ```
 Notifications sent to n people
@@ -126,4 +126,3 @@ In Debug mode, no messages are sent so this allows you to ensure eveything worki
 ## Authors
 
 - [@DanielKirkwood](https://www.github.com/DanielKirkwood)
-
