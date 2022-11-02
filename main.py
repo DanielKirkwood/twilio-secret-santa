@@ -4,7 +4,7 @@
     Given a dictionary of people, their phone numbers and other people to exclude this script will
     facilitate the selection and notification process for secret santa.
 
-    Twillio is used to send each participant the name of the person they have this year.
+    Twilio is used to send each participant the name of the person they have this year.
 
     A bipartite graph is created to map each participant to the people that they can have
     this year for secret santa.
