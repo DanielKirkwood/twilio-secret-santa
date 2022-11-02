@@ -17,7 +17,7 @@ The conditions which this script had to meet for me and my friends needs were:
 Clone the project to your machine
 
 ```bash
-git clone https://github.com/DanielKirkwood/twillio-secret-santa.git
+git clone https://github.com/DanielKirkwood/twilio-secret-santa.git
 cd twillio-secret-santa
 ```
 
