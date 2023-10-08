@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "twilio-secret-santa"
+version = "1.0.0"
+description = "A python script that generates secret santa allocations given some restraints and sends the allocations to participants using Twilio."
+authors = ["Daniel Kirkwood <danielkirkwood1973@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+twilio = "^8.9.1"
+flask = "^3.0.0"
+networkx = "^3.1"
+python-dotenv = "^1.0.0"
+matplotlib = "^3.8.0"
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^3.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

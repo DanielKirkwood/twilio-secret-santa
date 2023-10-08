@@ -21,13 +21,11 @@ git clone https://github.com/DanielKirkwood/twilio-secret-santa.git
 cd twillio-secret-santa
 ```
 
-Then install the dependencies listed in requirements.txt using pip
+Then install the dependencies using poetry
 
 ```bash
-pip install -r requirements.txt
+poetry install
 ```
-
-**NOTE: I highly recommend you create a virtual environment to install the dependencies to. For more information on creating virtual environments in python, check out the [docs](https://docs.python.org/3/tutorial/venv.html)**
 
 
 Create a `.env` file
@@ -83,7 +81,7 @@ Each key should be the name of the participant. The value should be another dict
 Provided that you have set-up your environment variables and the participants file, you can run the script by executing the `main.py` file:
 
 ```bash
-python main.py
+poetry run python main.py
 ```
 
 If you have set `DEBUG` to `False` then you will see

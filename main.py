@@ -26,9 +26,20 @@ client = Client(env['TWILIO_ACCOUNT_SID'], env['TWILIO_AUTH_TOKEN'])
 # Use a global variable so it's available to helper functions
 PARTICIPANTS = participants
 
-def is_valid_number(number):
+def is_valid_number(number: str) -> bool:
+    """Checks if the given phone number is a valid one.
+
+    Args:
+        number (str): the phone number to validate.
+
+    Raises:
+        error: raises error if error code not 20404.
+
+    Returns:
+        bool: True if number is valid, False otherwise.
+    """
     try:
-        response = client.lookups.phone_numbers(number).fetch()
+        client.lookups.phone_numbers(number).fetch()
         return True
     except TwilioRestException as error:
         if error.code == 20404:
@@ -36,8 +47,11 @@ def is_valid_number(number):
         else:
             raise error
 
-def create_assignments():
-    """created the assignments from PARTICIPANTS
+def create_assignments() -> dict[str, str]:
+    """create a mapping of assignments where each participant is mapped to another.
+
+    Returns:
+        dict[str, str]: the assigments map
     """
     people = list(PARTICIPANTS)
 
@@ -48,8 +62,14 @@ def create_assignments():
 
     return assignments
 
-def create_graph(people):
-    """ creates a bipartite graph
+def create_graph(people: list[str]) -> nx.Graph:
+    """create a bipartite graph from a given list of people.
+
+    Args:
+        people (list[str]): list of names.
+
+    Returns:
+        nx.Graph: a bipartite graph.
     """
 
     graph = nx.Graph()
@@ -76,11 +96,11 @@ def create_graph(people):
 
     return graph
 
-def send_assignments(assignments):
-    """
-        sends the assignments via twillio
+def send_assignments(assignments: dict) -> None:
+    """sends the assignments via twilio. if DEBUG env variable set to True, then the messages are instead printed.
 
-        if DEBUG env variable set to True, then the messages are instead printed
+    Args:
+        assignments (dict): a dict where dict[i] is the receiver of a gift from person i.
     """
 
     successful_notification_counter = 0
@@ -114,8 +134,7 @@ if __name__ == "__main__":
     invalid_numbers = 0
     for key, value in PARTICIPANTS.items():
         try:
-            result = is_valid_number(value['phone_number'])
-            if result == False:
+            if is_valid_number(value['phone_number']) is False:
                 invalid_numbers += 1
                 print(f"{key}'s phone number ({value['phone_number']}) is invalid")
             else:

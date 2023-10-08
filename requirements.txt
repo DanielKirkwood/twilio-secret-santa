@@ -1,7 +1,0 @@
-twilio
-flask
-networkx
-pylint
-python-dotenv
-numpy
-matplotlib
