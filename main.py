@@ -21,7 +21,7 @@ from participants import participants
 
 # load twilio details
 env = dotenv_values(".env")
-client = Client(env['TWILIO_ACCOUNT_SID'], env['TWILIO_AUTH_TOKEN'])
+client = Client(env['TWILIO_ACCOUNT_SID'], env['TWILIO_AUTH_TOKEN'], region='IE1', edge='dublin')
 
 # Use a global variable so it's available to helper functions
 PARTICIPANTS = participants
@@ -39,7 +39,7 @@ def is_valid_number(number: str) -> bool:
         bool: True if number is valid, False otherwise.
     """
     try:
-        client.lookups.phone_numbers(number).fetch()
+        client.lookups.v2.phone_numbers(number).fetch()
         return True
     except TwilioRestException as error:
         if error.code == 20404:
