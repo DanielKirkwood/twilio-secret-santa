@@ -10,6 +10,8 @@
     this year for secret santa.
 """
 
+import sys
+
 import matplotlib.pyplot as plt
 import networkx as nx
 from dotenv import dotenv_values
@@ -21,7 +23,7 @@ from participants import participants
 
 # load twilio details
 env = dotenv_values(".env")
-client = Client(env['TWILIO_ACCOUNT_SID'], env['TWILIO_AUTH_TOKEN'], region='IE1', edge='dublin')
+client = Client(username=env['ACCOUNT_SID'], password=env['AUTH_TOKEN'], account_sid=env['ACCOUNT_SID'])
 
 # Use a global variable so it's available to helper functions
 PARTICIPANTS = participants
@@ -44,8 +46,7 @@ def is_valid_number(number: str) -> bool:
     except TwilioRestException as error:
         if error.code == 20404:
             return False
-        else:
-            raise error
+        raise error
 
 def create_assignments() -> dict[str, str]:
     """create a mapping of assignments where each participant is mapped to another.
@@ -116,7 +117,7 @@ def send_assignments(assignments: dict) -> None:
             try:
                 client.messages.create(
                      body=body,
-                     from_=env['TWILIO_PHONE_NUMBER'],
+                     from_=env['PHONE_NUMBER'],
                      to=PARTICIPANTS[gift_sender]['phone_number']
                  )
                 successful_notification_counter += 1
@@ -134,7 +135,8 @@ if __name__ == "__main__":
     invalid_numbers = 0
     for key, value in PARTICIPANTS.items():
         try:
-            if is_valid_number(value['phone_number']) is False:
+            is_valid = is_valid_number(value['phone_number'])
+            if is_valid is False:
                 invalid_numbers += 1
                 print(f"{key}'s phone number ({value['phone_number']}) is invalid")
             else:
@@ -142,7 +144,7 @@ if __name__ == "__main__":
         except Exception as unknown_error:
             print('An unknown error occurred')
             print(unknown_error)
-            continue
+            sys.exit(1)
 
     # only continue if all numbers valid
     if invalid_numbers == 0:
