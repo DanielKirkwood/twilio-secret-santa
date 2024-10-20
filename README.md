@@ -1,4 +1,4 @@
-
+'sqlite://db.sqlite3'
 # Twilio Secret Santa
 
 A python script that generates secret santa allocations given some restraints and sends the allocations to participants using [Twilio](https://www.twilio.com).
@@ -8,8 +8,6 @@ The conditions which this script had to meet for me and my friends needs were:
 * The script should assign participants a receiver for their gift.
 * Participants should be allowed to exclude other participants from being selected for them. Useful for couples or for preventing users from getting the same person they got last year.
 * The allocations should be sent via an outside SMS service to each participant to prevent anyone from knowing the allocations. This is where Twilio comes in.
-
-
 
 
 ## Installation
