@@ -11,8 +11,7 @@ client = Client(username=env['TWILIO_ACCOUNT_SID'],
 
 
 def send_assignment(giver: Person, receiver: Person) -> bool:
-    body = f"Hello {giver.name}, you are {
-        receiver.name}'s Secret Santa this year. Remember to get them a gift!"
+    body = f"Hello {giver.name}, you are {receiver.name}'s Secret Santa this year. Remember to get them a gift!"
 
     try:
         client.messages.create(

@@ -69,4 +69,4 @@ class DrawHistory(TimestampMixin, Model):
     message_delivered = fields.BooleanField()
 
     def __str__(self):
-        return f"DrawHistory(giver={self.giver.name}, receiver={self.receiver.name}, group={self.group.name}, year={self.year}), message_delivered={self.message_delivered})"
+        return f"DrawHistory(giver={self.giver.name}, receiver={self.receiver.name}, group={self.group.name}, year={self.year}, message_delivered={self.message_delivered})"

@@ -24,7 +24,7 @@ async def init(db_url: str) -> None:
 
 
 @click.group()
-@click.option('--db', default='db.sqlite3', help='The SQLite database to use (default is in-memory).')
+@click.option('--db', default='db.sqlite3', help='The SQLite database to use (default is db.sqlite3).')
 @click.pass_context
 def cli(ctx, db):
     ctx.ensure_object(dict)
@@ -119,7 +119,7 @@ def clear_relationship(ctx, person_id):
         person = await Person.get(id=person_id)
 
         if person.partner:
-            partner = await Person.get(id=person.partner)
+            partner = person.partner
             person.partner = None
             await person.save()
             partner.partner = None
